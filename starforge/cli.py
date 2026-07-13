@@ -3,7 +3,6 @@ from rich.console import Console
 from rich import print as rprint
 from pathlib import Path
 from typing import Optional
-import sys
 
 from .generator import ReadmeGenerator
 from .providers import get_provider
@@ -46,6 +45,11 @@ def generate_readme(
         False,
         "--skip-llm",
         help="Generate README without LLM (template only)",
+    ),
+    debug: bool = typer.Option(
+        False,
+        "--debug",
+        help="Enable debug mode for detailed error output",
     ),
 ) -> None:
     """Generate a professional README from your project.
@@ -156,7 +160,7 @@ def generate_readme(
         raise
     except Exception as e:
         rprint(f"[red]✗ Error: {e}[/red]")
-        if "--debug" in sys.argv:
+        if debug:
             raise
         raise typer.Exit(1)
 
