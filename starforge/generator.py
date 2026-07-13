@@ -10,6 +10,21 @@ from .prompts import PromptTemplates
 class ReadmeGenerator:
     """Generate professional READMEs using LLM providers and project analysis."""
 
+    # Map technology names to their shields.io logo identifiers
+    TECH_LOGO_MAP = {
+        "Python": "python",
+        "JavaScript": "javascript",
+        "TypeScript": "typescript",
+        "Go": "go",
+        "Rust": "rust",
+        "Java": "java",
+        "React": "react",
+        "Node.js": "node.js",
+        "Docker": "docker",
+        "C/C++": "c",
+        "Vue": "vue.js",
+    }
+
     def __init__(
         self,
         project_path: str = ".",
@@ -197,7 +212,8 @@ See the [examples](./examples) directory or documentation for detailed usage ins
         badges = []
         for tech in tech_stack[:6]:  # Limit to 6 badges
             color = badge_colors.get(tech, "gray")
-            badge = f"![{tech}](https://img.shields.io/badge/{tech}-{color}?style=flat&logo={tech.lower()}&logoColor=white)"
+            logo = self.TECH_LOGO_MAP.get(tech, tech.lower())
+            badge = f"![{tech}](https://img.shields.io/badge/{tech}-{color}?style=flat&logo={logo}&logoColor=white)"
             badges.append(badge)
 
         return " ".join(badges) if badges else ""

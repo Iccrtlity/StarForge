@@ -152,6 +152,7 @@ class OpenAICompatibleProvider(LLMProvider):
         api_key: Optional[str] = None,
         base_url: str = "https://api.openai.com/v1",
         max_tokens: int = 8000,
+        temperature: float = 0.7,
     ):
         """Initialize OpenAI-compatible provider.
 
@@ -160,11 +161,13 @@ class OpenAICompatibleProvider(LLMProvider):
             api_key: API key (if None, will use OPENAI_API_KEY env var)
             base_url: API base URL (for custom endpoints)
             max_tokens: Maximum tokens for response generation (default: 8000)
+            temperature: Sampling temperature (default: 0.7)
         """
         self.model = model
         self.api_key = api_key or os.getenv("OPENAI_API_KEY")
         self.base_url = base_url
         self.max_tokens = max_tokens
+        self.temperature = temperature
         self._client = None
 
     @property
@@ -205,7 +208,7 @@ class OpenAICompatibleProvider(LLMProvider):
             response = self.client.chat.completions.create(
                 model=self.model,
                 messages=messages,
-                temperature=0.7,
+                temperature=self.temperature,
                 max_tokens=self.max_tokens,
             )
 

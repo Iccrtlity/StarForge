@@ -103,10 +103,8 @@ def generate_readme(
         if not skip_llm:
             try:
                 rprint(f"[cyan]Initializing {provider} provider...[/cyan]")
-                provider_kwargs = {}
-
-                if model:
-                    provider_kwargs["model"] = model
+                # Build provider configuration
+                provider_kwargs = {"model": model} if model else {}
 
                 llm_provider = get_provider(provider, **provider_kwargs)
 
