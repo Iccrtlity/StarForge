@@ -10,6 +10,12 @@ from typing import Dict, List, Set, Tuple
 class ProjectScanner:
     """Scans a project directory to detect tech stack, file structure, and basic metrics."""
 
+    # Allowed hidden files (files starting with . that should not be ignored)
+    ALLOWED_HIDDEN_FILES = {".gitignore"}
+
+    # Maximum length for project purpose extraction
+    MAX_PURPOSE_LENGTH = 150
+
     # Directories and files to ignore
     IGNORE_DIRS = {
         ".git",
@@ -99,7 +105,7 @@ class ProjectScanner:
                 file_path = Path(root) / file
 
                 # Skip if hidden (except documented files)
-                if file.startswith(".") and file not in [".gitignore"]:
+                if file.startswith(".") and file not in self.ALLOWED_HIDDEN_FILES:
                     continue
 
                 total_files += 1
@@ -174,7 +180,7 @@ class ProjectScanner:
                                 and not line.startswith("-")
                                 and len(line) > 10
                             ):
-                                return line[:150]
+                                return line[: self.MAX_PURPOSE_LENGTH]
                 except (IOError, OSError):
                     pass
 
