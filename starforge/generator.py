@@ -144,8 +144,8 @@ See the [examples](./examples) directory or documentation for detailed usage ins
 
         try:
             return self.provider.generate(prompt, system_prompt)
-        except Exception as e:
-            print(f"⚠️  Error generating {section_type}: {e}")
+        except Exception:
+            # Gracefully handle generation errors by returning placeholder
             return f"<!-- Could not generate {section_type} -->"
 
     def _generate_header(self, scan_info: dict, description: str) -> str:

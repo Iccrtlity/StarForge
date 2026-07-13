@@ -98,8 +98,8 @@ class ProjectScanner:
             for file in files:
                 file_path = Path(root) / file
 
-                # Skip if hidden or ignored
-                if file.startswith(".") and file not in [".github", ".gitignore"]:
+                # Skip if hidden (except documented files)
+                if file.startswith(".") and file not in [".gitignore"]:
                     continue
 
                 total_files += 1
