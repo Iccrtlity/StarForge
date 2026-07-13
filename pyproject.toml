@@ -1,0 +1,16 @@
+[project]
+name = "starforge"
+version = "0.1.0"
+description = "AI-powered GitHub repo booster"
+requires-python = ">=3.10"
+dependencies = [
+    "typer>=0.9.0",
+    "rich>=13.0.0",
+]
+
+[project.scripts]
+starforge = "starforge.cli:app"
+
+[build-system]
+requires = ["setuptools>=45"]
+build-backend = "setuptools.build_meta"
