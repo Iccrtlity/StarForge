@@ -103,14 +103,9 @@ export OPENAI_API_KEY="your-api-key-here"
 # Generate with OpenAI
 starforge generate-readme . --provider openai --model gpt-4
 
-# Use with Mistral API
-starforge generate-readme . --provider openai --model mistral-large \
-  --base-url "https://api.mistral.ai/v1"
-
-# Use with Azure OpenAI
-export AZURE_OPENAI_API_KEY="your-key"
+# Customize LLM behavior
 starforge generate-readme . --provider openai --model gpt-4 \
-  --base-url "https://your-resource.openai.azure.com/"
+  --max-tokens 4000 --temperature 0.7
 ```
 
 ### Combine Options

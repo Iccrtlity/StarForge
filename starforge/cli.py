@@ -46,6 +46,16 @@ def generate_readme(
         "--skip-llm",
         help="Generate README without LLM (template only)",
     ),
+    max_tokens: int = typer.Option(
+        None,
+        "--max-tokens",
+        help="Maximum tokens for LLM response (for OpenAI provider)",
+    ),
+    temperature: float = typer.Option(
+        None,
+        "--temperature",
+        help="Temperature for LLM sampling (0.0-1.0, for OpenAI provider)",
+    ),
     debug: bool = typer.Option(
         False,
         "--debug",
@@ -104,7 +114,13 @@ def generate_readme(
             try:
                 rprint(f"[cyan]Initializing {provider} provider...[/cyan]")
                 # Build provider configuration
-                provider_kwargs = {"model": model} if model else {}
+                provider_kwargs = {}
+                if model:
+                    provider_kwargs["model"] = model
+                if max_tokens:
+                    provider_kwargs["max_tokens"] = max_tokens
+                if temperature is not None:
+                    provider_kwargs["temperature"] = temperature
 
                 llm_provider = get_provider(provider, **provider_kwargs)
 

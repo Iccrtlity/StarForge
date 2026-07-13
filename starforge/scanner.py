@@ -117,7 +117,10 @@ class ProjectScanner:
                 # Detect tech stack
                 for tech, patterns in self.TECH_PATTERNS.items():
                     for pattern in patterns:
-                        if re.search(pattern, str(file_path)):
+                        # For path-specific patterns (contain /), search full path
+                        # For file-specific patterns, search only filename
+                        search_target = str(file_path) if "/" in pattern else file
+                        if re.search(pattern, search_target):
                             tech_stack.add(tech)
                             break
 
