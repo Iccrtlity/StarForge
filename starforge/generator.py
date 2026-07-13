@@ -2,6 +2,7 @@
 
 from typing import Optional
 from datetime import datetime, timezone
+from urllib.parse import quote
 from .scanner import ProjectScanner
 from .providers import LLMProvider
 from .prompts import PromptTemplates
@@ -213,7 +214,9 @@ See the [examples](./examples) directory or documentation for detailed usage ins
         for tech in tech_stack[:6]:  # Limit to 6 badges
             color = badge_colors.get(tech, "gray")
             logo = self.TECH_LOGO_MAP.get(tech, tech.lower())
-            badge = f"![{tech}](https://img.shields.io/badge/{tech}-{color}?style=flat&logo={logo}&logoColor=white)"
+            # URL-encode tech name to handle special characters
+            encoded_tech = quote(tech, safe="")
+            badge = f"![{tech}](https://img.shields.io/badge/{encoded_tech}-{color}?style=flat&logo={logo}&logoColor=white)"
             badges.append(badge)
 
         return " ".join(badges) if badges else ""

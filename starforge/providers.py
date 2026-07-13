@@ -151,7 +151,7 @@ class OpenAICompatibleProvider(LLMProvider):
         model: str = "gpt-3.5-turbo",
         api_key: Optional[str] = None,
         base_url: str = "https://api.openai.com/v1",
-        max_tokens: int = 8000,
+        max_tokens: int = 4000,
         temperature: float = 0.7,
     ):
         """Initialize OpenAI-compatible provider.
@@ -160,7 +160,7 @@ class OpenAICompatibleProvider(LLMProvider):
             model: Model name (e.g., 'gpt-3.5-turbo', 'gpt-4')
             api_key: API key (if None, will use OPENAI_API_KEY env var)
             base_url: API base URL (for custom endpoints)
-            max_tokens: Maximum tokens for response generation (default: 8000)
+            max_tokens: Maximum tokens for response generation (default: 4000)
             temperature: Sampling temperature (default: 0.7)
         """
         self.model = model
